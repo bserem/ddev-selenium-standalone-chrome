@@ -24,6 +24,9 @@ This service can be used with any project type. The examples below are Drupal-sp
   - Drupal Test Traits
     - Ensure you have a working site that has the `weitzman/drupal-test-traits` Composer package.
     - `ddev exec -d /var/www/html/web "../vendor/bin/phpunit --bootstrap=../vendor/weitzman/drupal-test-traits/src/bootstrap-fast.php --printer '\Drupal\Tests\Listeners\HtmlOutputPrinter' ../vendor/weitzman/drupal-test-traits/tests/ExampleSelenium2DriverTest.php"`
+  - Behat
+    - See below for `behat.yml` configuration
+    - `composer require drupal/drupal-extension --dev`
 
 ## Watching the tests
 
@@ -53,12 +56,12 @@ Note that when using `ports`, only one project at a time can be running with por
 
 ### Behat config example
 
-If you use Behat as a test running, adjust your `behat.yml`
+If you use Behat as a test running, adjust your `behat.yml`:
 
 ```yml
   extensions:
     Behat\MinkExtension:
-      base_url: http://web
+      base_url: http://mysite.ddev.site
       selenium2:
         wd_host: http://selenium-chrome:4444/wd/hub
         capabilities:
@@ -70,10 +73,13 @@ If you use Behat as a test running, adjust your `behat.yml`
               - "--disable-dev-shm-usage"
 ```
 
+- Drupal users can swap `Behat\MinkExtension` with `Drupal\MinkExtension` for extra goodness.
+- You can remove/comment the `--headless` option to see the browser running in VNC. You can even interact with it when pausing (ie: `When I break` if your test)
+
 ## Contribute
 
-- Anyone is welcome to submit a PR to this repo. See README.md at https://github.com/ddev/ddev-addon-template, the parent of this repo.
+- Anyone is welcome to submit a PR to this repo.
 
 ## Maintainer
 
-- Contributed and maintained by [@weitzman](https://github.com/weitzman).
+- Contributed and maintained by [@weitzman](https://github.com/weitzman). Maintained by DDEV community.
